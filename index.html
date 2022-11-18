@@ -42,6 +42,35 @@
 
 <button></button>
 <script>
+// in this challenge we start with 3 divs, each with a different background color, one nested inside the other.
+// we'll start by listening for a click on all 3 divs. 
+const divs = document.querySelectorAll('div');
+const button = document.querySelector('button');
+
+function logText(e) {
+  console.log(this.classList.value);
+  // stop this event from bubbling up!
+    // e.stopPropagation();
+}
+
+// here we take all the divs, loop over them all and add an event listener to each one. Clicking on the 3rd nested div will log 'three' to the console, then 'two' and then 'one'. This is because the event bubbles up through the divs.
+// bubbling is when an event fires on an element, then bubbles up to its parent, then up to its parent, and so on, until it reaches the top of the DOM tree.
+divs.forEach(div => div.addEventListener('click', logText,
+{
+    capture: false,
+    once: true
+}));
+// after listening once it will unbind itself.
+// first the browser does a capture. You click on an element and it ripples outwards, capturing all the elements it touches. Then it does a bubble. It starts at the top of the DOM tree and works its way down, firing events on all the elements it touches.
+// using capture: true reverses this. It runs on the capture phase, not the bubble phase. It defaults to false.
+
+button.addEventListener('click', () => {
+  console.log('Click!!!');
+}, {
+  once: true
+});
+// using once on a button is useful for things like checkouts. 
+
 
 </script>
 </body>
